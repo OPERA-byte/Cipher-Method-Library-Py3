@@ -1,68 +1,115 @@
 import tkinter as tk
-from tkinter import Tk
-from tkinter import ttk
-from tkinter import font
+import tkinter as ttk
+
+class VigenereApp(tk.Tk):
+
+    def __init__(self):
+        super().__init__()
+        self.title("Vigenere")
+        #self.geometry('300x130')
+        #self.resizable(False, False)
+
+        #widgets
+        #MainMenu(self)
+        NewVigenereTable(self)
+        self.mainloop()
 
 
-class GUI:
-
-    def vigenere_window(self):
-        vigenere_window = tk.Toplevel()
-        vigenere_window.title('VIGENERE CIPHER')
-        vigenere_window.geometry("300x130")
-        vigenere_window.resizable(False, False)
-        vigenere_window.configure(bg='#1C1C1C')
-
-        new_vigenere_table = ttk.Button(vigenere_window, text="New Vigenere Table")
-        default_vigenere_table = ttk.Button(vigenere_window, text="Defualt Vigenere Table")
-        decrypt_vigenere_cipher = ttk.Button(vigenere_window, text="Decrypt Vigenere Cipher")
-
-        new_vigenere_table.pack(side="top", padx=5, pady=10)
-        default_vigenere_table.pack(side="top", padx=5, pady=5)
-        decrypt_vigenere_cipher.pack(side='top', padx=5, pady=5)
+    def switch_frames(self):
+        pass
 
 
+class MainMenu(ttk.Frame):
 
-    def vigenere_window_2(self):
-        vigenere_window_2 = tk.Toplevel()
-        vigenere_window_2.title('VIGENERE CIPHER')
-        #vigenere_window.geometry('300x300')
+    def __init__(self, parent):
+        super().__init__(parent)
+        parent.geometry('300x130')
 
-        dictionary_key_label = ttk.Label(vigenere_window_2, text='Dictionary-Key: ')
-        key_stream_label = ttk.Label(vigenere_window_2, text='Key-Stream: ')
+        #ttk.Label(self, background = 'red').pack(expand = True, fill = 'both')
 
-        dictionary_key = ttk.Entry(vigenere_window_2)
-        key_stream = ttk.Entry(vigenere_window_2)
+        self.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+        self.create_widget()
 
-        dictionary_key_label.pack(side="top", padx=5, pady=5)
-        dictionary_key.pack(side='top', padx=5, pady=5)
-        key_stream_label.pack(side="top", padx=5, pady=5)
-        key_stream.pack(side="top", padx=5, pady=5)
+    def create_widget(self):
+        # create grid
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
+        self.rowconfigure(2, weight=1)
 
-    def caesar_window(self):
-        caesar_window = tk.Toplevel()
-        caesar_window.title('CAESAR CIPHER')
-        caesar_window.geometry('300X300')
+        # Create and place the label
+        label1 = ttk.Label(self, text="Label 1", background='blue')
+        label1.grid(row=0, column=0, sticky='nsew')
 
-    def gui(self):
-        option_window = Tk()
-        option_window.title('Cipher-Box')
-        option_window.geometry('400x600')
-        option_window.configure(bg='#1C1C1C')
+        # If you want to add more labels and make them span the entire column width, add them here.
+        # For example, to create labels for row 1 and row 2:
+        label2 = ttk.Label(self, text="Label 2", background='green')
+        label2.grid(row=1, column=0, sticky='nsew')
 
+        label3 = ttk.Label(self, text="Label 3", background='red')
+        label3.grid(row=2, column=0, sticky='nsew')
 
-        vigenere = ttk.Button(option_window, text="VIGENERE", command=self.vigenere_window)
-
-
-        caesar = ttk.Button(option_window, text="CAESAR", command=self.caesar_window)
-
-
-        vigenere.pack(side='top', expand=True, fill='both', pady=10, padx=80)
-        caesar.pack(side='top', expand=True, fill='both', pady=10, padx=80)
-
-        option_window.mainloop()
+        new_vigenere_table_button = ttk.Button(self, text = 'New Vigenere Table').grid(row = 0, column = 0)
+        default_vigenere_table_button = ttk.Button(self, text = 'Default Vigenere Table').grid(row = 1, column = 0)
+        decrypt_vigenere_cipher_button = ttk.Button(self, text = 'Decrypt Vigenere Cipher').grid(row = 2, column = 0)
 
 
-program = GUI()
-program.gui()
+class NewVigenereTable(ttk.Frame):
+
+    """
+               Entry: Dictionary_Key
+            Entry: Key Stream
+
+            Label: 'Text'
+            Entry: text
+
+            Button: Encrypt
+
+
+    """
+    def __init__(self, parent):
+        super().__init__(parent)
+        # parent.geometry('350x400')
+
+        self.place(x=0, y=0, relwidth=1, relheight=1)
+        self.create_widgets()
+
+    def create_widgets(self):
+        # create grid
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.rowconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
+        self.rowconfigure(2, weight=1)
+        self.rowconfigure(3, weight=1)
+        self.rowconfigure(4, weight=1)
+        self.rowconfigure(5, weight=1)
+
+        # Create and place the label
+        label1 = ttk.Label(self, text="Label 1", background='blue')
+        label1.grid(row=0, column=0, sticky='nsew', columnspan = 2)
+
+        # If you want to add more labels and make them span the entire column width, add them here.
+        # For example, to create labels for row 1 and row 2:
+
+
+        label4 = ttk.Label(self, text = "Label 4", background = 'orange')
+        label4.grid(row = 3, column = 0, sticky = 'nsew')
+
+        label5 = ttk.Label(self, text="Label 5", background='brown')
+        label5.grid(row=4, column=0, sticky='nsew')
+
+        dictionary_key_label = ttk.Label(self, text='Dictionary Key')
+        dictionary_key_label.grid(row=1, column=0, sticky='n', pady=(30, 0))
+        dictionary_key_entry = ttk.Entry(self, width = 10, background = 'white')
+        dictionary_key_entry.grid(row = 1, column = 0, sticky = 's', pady=(0, 20))
+
+        key_stream = ttk.Label(self, text = 'Key Stream').grid(row = 2, column = 0, sticky = 'n', pady=(30, 0))
+        key_stream_entry = ttk.Entry(self, width = 10, background = 'white')
+        key_stream_entry.grid(row = 2, column = 0, sticky = 's', pady = (0,19))
+
+        text_box = ttk.Text(self, width = 10, height = 5, background = 'white')
+        text_box.grid(row = 3, column = 0, sticky = 'ew', columnspan = 2, padx=10, pady=10)
+
+
 
